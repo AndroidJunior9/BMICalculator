@@ -20,7 +20,10 @@ class MainViewModel: ViewModel() {
             )
         }else{
             state.copy(
-                BMI = 0f
+                BMI = 0f,
+                lowerWeightBound = 0f,
+                higherWeightBound = 0f,
+                category = Category.Underweight
             )
         }
 
