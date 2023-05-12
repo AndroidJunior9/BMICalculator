@@ -30,8 +30,8 @@ class MainViewModel: ViewModel() {
     }
     private fun calculateWeightBounds(){
         val heightInMeters = state.height.toFloat()/100f
-        val lWeight = 18*(heightInMeters*heightInMeters)
-        val hWeight = 24*(heightInMeters*heightInMeters)
+        val lWeight = 18.6f*(heightInMeters*heightInMeters)
+        val hWeight = 24.9f*(heightInMeters*heightInMeters)
         state = state.copy(
             lowerWeightBound = lWeight,
             higherWeightBound = hWeight
@@ -39,11 +39,11 @@ class MainViewModel: ViewModel() {
     }
 
     private fun findCategory(bmi:Float):Category{
-        return if (bmi<=18){
+        return if (bmi<=18.5){
             Category.Underweight
-        }else if (bmi<=24){
+        }else if (bmi<=24.9){
             Category.Normal
-        }else if(bmi<=30){
+        }else if(bmi<=29.9){
             Category.Overweight
         }else {
             Category.Obese

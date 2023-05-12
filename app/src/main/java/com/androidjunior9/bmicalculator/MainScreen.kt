@@ -15,6 +15,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.androidjunior9.bmicalculator.ui.theme.BackGround
+import com.androidjunior9.bmicalculator.ui.theme.Green
+import com.androidjunior9.bmicalculator.ui.theme.Purple80
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -32,8 +35,8 @@ fun MainScreen(
     val hWeight = state.higherWeightBound
     val context = LocalContext.current
     val category = state.category
-    val df = DecimalFormat("#.##")
-    df.roundingMode = RoundingMode.DOWN
+    val df = DecimalFormat("#.#")
+    df.roundingMode = RoundingMode.CEILING
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -41,13 +44,12 @@ fun MainScreen(
         Box(Modifier.padding(vertical = 16.dp), contentAlignment = Alignment.Center) {
             Text(
                 text = "Calculate BMI",
-                color = Color.Green,
-                fontSize = 32.sp,
+                color = Green,
+                fontSize = 28.sp,
                 fontWeight = FontWeight.Medium
             )
         }
-
-
+        Divider(modifier = Modifier.fillMaxWidth())
         Row(
             verticalAlignment = Alignment.Bottom
         ) {
@@ -65,7 +67,7 @@ fun MainScreen(
                 },
                 textStyle = TextStyle(
                     fontSize = 14.sp,
-                    color = Color.Green,
+                    color = Color.White,
                     fontWeight = FontWeight.Bold
                 ),
                 label = {
@@ -76,9 +78,9 @@ fun MainScreen(
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 colors = TextFieldDefaults.textFieldColors(
-                    focusedIndicatorColor = Color.Green,
+                    focusedIndicatorColor = Purple80,
                     unfocusedIndicatorColor = Color.White,
-                    containerColor = Color.Black
+                    containerColor = BackGround
                 )
             )
             Spacer(
@@ -106,7 +108,7 @@ fun MainScreen(
                 },
                 textStyle = TextStyle(
                     fontSize = 14.sp,
-                    color = Color.Green,
+                    color = Color.White,
                     fontWeight = FontWeight.Bold
                 ),
                 label = {
@@ -117,9 +119,9 @@ fun MainScreen(
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 colors = TextFieldDefaults.textFieldColors(
-                    focusedIndicatorColor = Color.Green,
+                    focusedIndicatorColor = Purple80,
                     unfocusedIndicatorColor = Color.White,
-                    containerColor = Color.Black
+                    containerColor = BackGround
                 )
             )
             Spacer(
@@ -134,12 +136,12 @@ fun MainScreen(
         }
 
 
-
-        Box(Modifier.padding(vertical = 16.dp), contentAlignment = Alignment.Center) {
+        Spacer(modifier = Modifier.height(32.dp))
+        Box(contentAlignment = Alignment.Center) {
             Text(
                 text = category.name,
                 color = category.color,
-                fontSize = 32.sp,
+                fontSize = 24.sp,
                 fontWeight = FontWeight.Medium
             )
         }
@@ -147,14 +149,14 @@ fun MainScreen(
         // Circular Progress bar with text in the center Custom Box
         Box(
             modifier = Modifier
-                .padding(horizontal = 16.dp, vertical = 64.dp)
-                .size(250.dp),
+                .padding(horizontal = 16.dp, vertical = 16.dp)
+                .size(200.dp),
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = if(bmi>100) ">100" else df.format(bmi),
+                text = if(bmi>100) ">100" else df.format(bmi.toBigDecimal()),
                 color = Color.White,
-                fontSize = 64.sp,
+                fontSize = 48.sp,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Medium,
             )
@@ -162,9 +164,54 @@ fun MainScreen(
                 progress = getProgress(bmi),
                 color = category.color,
                 strokeWidth = 16.dp,
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
             )
         }
+        Divider(modifier = Modifier.fillMaxWidth())
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ){
+            BmiChart(
+                text = "Underweight",
+                text2 = "Normal Weight",
+                text3 = "Overweight",
+                text4 = "Obese Class I",
+                text5 = "Obese Class II",
+                text6 = "Obese Class III",
+                size =  14.sp,
+                fontWeight = FontWeight.Light,
+                alignment =   Alignment.Start,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(4.dp)
+                    .weight(1f)
+                    .fillMaxHeight(0.8f)
+            )
+
+            BmiChart(
+                text = "<=18.5",
+                text2 = "18.5 - 24.9",
+                text3 = "25 - 29.9",
+                text4 = "30 - 34.9",
+                text5 = "35 - 39.9",
+                text6 = ">=40",
+                size = 14.sp,
+                fontWeight =  FontWeight.Bold,
+                alignment =  Alignment.End,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+                    .weight(1f)
+                    .fillMaxHeight(0.8f)
+            )
+        }
+        Divider(modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 8.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -174,13 +221,15 @@ fun MainScreen(
         ){
             Text(
                 "Normal Weight",
-                fontSize = 16.sp,
-                color = Color.White
+                fontSize = 20.sp,
+                color = Color.White,
+                fontWeight = FontWeight.Bold
             )
             Text(
-                "${lWeight.toInt()} - ${hWeight.toInt()}",
-                fontSize = 16.sp,
-                color = Color.White
+                "${lWeight.toInt()} - ${hWeight.toInt()} kg",
+                fontSize = 20.sp,
+                color = Color.White,
+                fontWeight = FontWeight.Bold
             )
 
 
