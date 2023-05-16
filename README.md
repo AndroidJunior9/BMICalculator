@@ -7,6 +7,9 @@ This is simple Bmi Calculator made using Android's latest Native Ui Toolkit, Jet
 • 100% Kotlin  
 • Jetpack Compose (Android Toolkit for building Native Ui in Kotlin)
 
+## Link to my medium blog on this project
+https://medium.com/@shivamkadam0709/how-to-make-a-bmi-calculator-in-jetpack-compose-7be33bf87f90
+
 ## Screenshots
 
 ![WhatsApp Image 2023-05-12 at 13 05 14](https://github.com/AndroidJunior9/BMICalculator/assets/111723283/93036494-5a39-4c3c-b403-7d6d3c8cd70a)
